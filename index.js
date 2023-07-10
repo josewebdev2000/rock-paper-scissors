@@ -1,175 +1,128 @@
+/* GLOBAL SCOPE */
+
+// Initialize Music File
+const bgMusic = new Audio("assets/music/bg-music.mp3");
+bgMusic.loop = true;
+
+// Store whether or not the sound click switcher was clicked for the first time in sessionStorage
+const soundSwitcherClickedFirstTimeIdentified = "sound-switcher-clicked-first-time";
+sessionStorage.setItem(soundSwitcherClickedFirstTimeIdentified, "no");
+
 function main()
 {
-    console.log("All ready for the game");
+    /* Run the relevant code for the main page */
 
-    // Play the game 5 times
-    game(5);
-}
+    // Grab required HTML elements
+    const h1Header = document.querySelector("h1");
+    const soundSwitcherBtn = document.querySelector("button#sound-switcher");
+    const h2Link = document.querySelector("a > h2");
 
-function game(rounds)
-{
-    // Define all possible choices for the game
-    const choices = ["rock", "paper", "scissors"];
-
-    // Keep the score of each party
-    let userScore = 0;
-    let computerScore = 0;
-
-    // Play as many rounds there are
-    for (let i = 0; i < rounds; i++)
-    {
-        // Get choices of each party
-        const userChoice = getUserChoice(choices);
-        const compChoice = getComputerChoice(choices);
-
-        // Get the winner
-        const winner = playRound(userChoice, compChoice);
-
-        // Announce choices
-        console.log("You chose " + userChoice);
-        console.log("The computer chose: " + compChoice);
-
-        // Announce the winner
-        announceWinner(winner);
-
-        // Increase score accordingly
-        switch (winner)
+    // Prepare DOM elements and sources
+    const domElementsWithSources = [
         {
-            case "player":
-                userScore++;
-                break;
-            
-            case "computer":
-                computerScore++;
-                break;
-            
-            default: {
-
+            dom_obj: h1Header,
+            events: [
+                {
+                    name: "mouseover",
+                    assetPath: "assets/sound-effects/hover.wav"
                 }
+            ]
+        },
+        {
+            dom_obj: h2Link,
+            events: [
+                {
+                    name: "mouseover",
+                    assetPath: "assets/sound-effects/hover.wav"
+                },
+                {
+                    name: "click",
+                    assetPath: "assets/sound-effects/start.wav"
+                }
+            ]
+        },
+        {
+            dom_obj: soundSwitcherBtn,
+            events: [
+                {
+                    name: "mouseover",
+                    assetPath: "assets/sound-effects/hover.wav"
+                },
+                {
+                    name: "click",
+                    assetPath: "assets/sound-effects/click.mp3"
+                }
+            ]
         }
+    ];
 
+    soundSwitcherBtn.addEventListener("click", toggleAudio);
+    // Add event Listeners to appropiate DOM elements
+    addSfxFromDomElements(domElementsWithSources);
+}
+
+function toggleAudio()
+{
+    /* Switch audio from on to off according to what's required */
+
+    // Set the sound switcher clicked for the first time if requried
+    if (sessionStorage.getItem(soundSwitcherClickedFirstTimeIdentified) === "no")
+    {
+        sessionStorage.setItem(soundSwitcherClickedFirstTimeIdentified, "yes");
     }
 
-    // Announce final scores
-    console.log("Your final score is: " + userScore);
-    console.log("The machine's final score is: " + computerScore);
+    const soundSwitcherBtnImg = document.querySelector("img#sound-switcher-image");
 
-    // Announce final winner
-    if (userScore > computerScore)
+    // Check if on is in the name of the image of the actual btn
+    if (isSoundAllowed())
     {
-        console.log("You are the ultimate winner");
-    }
-
-    else if (userScore < computerScore)
-    {
-        console.log("The machine is the ultimate winner");
+        bgMusic.play();
+        soundSwitcherBtnImg.src = "assets/pics/sound-off.png";
     }
 
     else
     {
-        console.log("There is no ultimate winner");
+        bgMusic.pause();
+        soundSwitcherBtnImg.src = "assets/pics/sound-on.png";
     }
-    
 }
 
-function getUserChoice(choices)
+function addSfxFromDomElements(domElementsNSources)
 {
-    /* Ask the user through a prompt for what element they choose to play with */
-
-    // If the user did not choose a valid option, keep asking
-    let userChoice = "";
-
-    do
+    /* Add or remove SFX from given DOM Elements */
+    for (let i = 0; i < domElementsNSources.length; i++)
     {
-        // Get user choice
-        userChoice = prompt("What do you choose? (rock, paper, or scissors)");
-    }
-    while (!choices.includes(userChoice));
+        const { dom_obj, events } = domElementsNSources[i];
 
-    return userChoice;
+        for (let j = 0; j < events.length; j++)
+        {
+            const { name, assetPath } = events[j];
+            dom_obj.addEventListener(name, () => playSfx(assetPath));  
+        }
+    }
 }
 
-function getComputerChoice(choices)
+function isSoundAllowed()
 {
-    /* Randomly return either "Rock", "Paper", or "Scissor" */
+    /* Return whether or not sound is allowed by the user */
 
-    // Generate a rendom index to reference a random choice
-    const randomIndex = Math.floor(Math.random() * choices.length);
-    return choices[randomIndex];
-
+    const soundSwitcherBtnImg = document.querySelector("img#sound-switcher-image");
+    const imageSource = soundSwitcherBtnImg.src;
+    const fileName = imageSource.substring(imageSource.lastIndexOf('/') + 1);
+    return fileName.includes("on");
 }
 
-function announceWinner(winner)
+function playSfx(sfxSource)
 {
-    /* Return a string to announce the winner of the round */
+    /* Play a sound effect*/
 
-    let announcement = "";
+    // Get whether the toggle button was first clicked or not
+    const wasToggleSoundBtnFirstClicked = sessionStorage.getItem(soundSwitcherClickedFirstTimeIdentified);
 
-    switch(winner)
+    if (!isSoundAllowed() && wasToggleSoundBtnFirstClicked === "yes")
     {
-        case "player":
-            announcement = "You Win!";
-            break;
-        
-        case "computer":
-            announcement = "You Lose!";
-            break;
-        
-        default:
-            announcement = "It's a Tie!";
-    }
-
-    console.log(announcement);
-
-}
-
-function playRound(playerChoice, computerChoice)
-{
-    /* Based on the choice of the player and the computer, choose a winner if any */
-
-    // Lowercase all input
-    const playerSelection = playerChoice.toLowerCase();
-    const computerSelection = computerChoice.toLowerCase();
-
-    // Define outputs
-    const playerWinsMsg = "player";
-    const playerLosesMsg = "computer";
-    const tieMsg = "none";
-
-    // Define winning conditions for every case
-    if (playerSelection === "rock" && computerSelection === "scissors")
-    {
-        return playerWinsMsg;
-    }
-
-    else if (playerSelection === "rock" && computerSelection === "paper")
-    {
-        return playerLosesMsg;
-    }
-
-    else if (playerSelection === "paper" && computerSelection === "rock")
-    {
-        return playerWinsMsg;
-    }
-
-    else if (playerSelection === "paper" && computerSelection === "scissors")
-    {
-        return playerLosesMsg;
-    }
-
-    else if (playerSelection === "scissors" && computerSelection === "paper")
-    {
-        return playerWinsMsg;
-    }
-
-    else if (playerSelection === "scissors" && computerSelection === "rock")
-    {
-        return playerLosesMsg;
-    }
-
-    else
-    {
-        return tieMsg;
+        const clickSfx = new Audio(sfxSource);
+        clickSfx.play();
     }
 }
 

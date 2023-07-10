@@ -5,14 +5,59 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Rock Paper Scissors</title>
 
+    <!--Animate CSS CDN-->
+    <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"
+    />
+
+    <!--CSS Stylesheets-->
+    <link rel="stylesheet" href="styles.css">
+
     <!--JS Script-->
     <script src="index.js"></script>
+    <script src="scripts/game.js"></script>
 </head>
 <body>
-    <h1>Rock Paper Scissors</h1>
-    <h2>Overview</h2>
-    <p>At the moment, this game is played from the browser console.</p>
-    <p>To access the game please execute the shorcut <code>Ctrl + Shift + I</code>.</p>
-    <p>On the other hand, you could also <strong>right click</strong> the browser window and choose <strong>Inspect</strong>.</p>
+    <!--Header -->
+    <header>
+        <h1 class="custom-tada">Rock Paper N' Scissors</h1>
+
+        <div class="sound-switcher-container">
+            <button id="sound-switcher">
+                <img id="sound-switcher-image" src="assets/pics/sound-on.png" alt="Sound Toggler">
+            </button>
+        </div>
+    </header>
+
+    <main>
+        <!--Link Section-->
+        <section id="link-container">
+            <a 
+            id="game-link"  
+            href="#"
+            >
+                <h2 class="animate__animated animate__pulse animate__infinite">Start Game</h2>
+            </a>
+        </section>
+    </main>
+
+    <!--Footer-->
+    <footer>
+        <div class="footer-content">
+            <div class="profile-pic-container">
+                <img id="profile-pic" src="https://avatars.githubusercontent.com/u/115896482?v=4" alt="GitHub-Profile-Picture"/>
+            </div>
+
+            <div class="copyright">
+                <p>
+                    <a href="https://github.com/josewebdev2000" target="_blank">
+                        &copy; josewebdev2000
+                    </a>
+                </p>
+            </div>
+        </div>
+    </footer>
+    
 </body>
 </html>
