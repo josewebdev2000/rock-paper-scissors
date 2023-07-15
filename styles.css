@@ -145,8 +145,31 @@ footer
     flex: 0 0 20%;
 }
 
+div.footer-content
+{
+    padding: 20px;
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: center;
+    align-items: center;
+}
+
 img#profile-pic
 {
     width: 20vw;
     max-width: 150px;
+    border-radius: 50%;
+}
+
+div.copyright p a
+{
+    color: var(--special-text-color);
+    font-size: var(--special-text-font-size);
+    text-decoration: none;
+    transition: color 0.3s;
+}
+
+div.copyright p a:hover
+{
+    color: var(--link-color);
 }

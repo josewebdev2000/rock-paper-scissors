@@ -16,6 +16,7 @@ function main()
     const h1Header = document.querySelector("h1");
     const soundSwitcherBtn = document.querySelector("button#sound-switcher");
     const h2Link = document.querySelector("a > h2");
+    const profileLink = document.querySelector("div.copyright > p > a");
 
     // Prepare DOM elements and sources
     const domElementsWithSources = [
@@ -43,6 +44,19 @@ function main()
         },
         {
             dom_obj: soundSwitcherBtn,
+            events: [
+                {
+                    name: "mouseover",
+                    assetPath: "assets/sound-effects/hover.wav"
+                },
+                {
+                    name: "click",
+                    assetPath: "assets/sound-effects/click.mp3"
+                }
+            ]
+        },
+        {
+            dom_obj: profileLink,
             events: [
                 {
                     name: "mouseover",
