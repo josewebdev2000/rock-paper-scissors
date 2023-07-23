@@ -317,6 +317,11 @@ function displayResults()
         // Display the element to the DOM
         resultsSection.style.display = "flex";
 
+        if (resultsSection.classList.contains("animate__fadeOut"))
+        {
+            resultsSection.classList.remove("animate__fadeOut");
+        }
+
         // Add the class fade-in from Animate CSS to game container
         resultsSection.classList.add("animate__fadeIn");
 
@@ -326,14 +331,38 @@ function displayResults()
     const resultsMsgElement = document.querySelector(".results-message");
     resultsMsgElement.textContent = finalMsg;
 
+    // Disable and dissapear all buttons
+
 }
 
-function playAgain()
+function playAgain(e)
 {
     /* Prepare everything to play another round */
+    e.preventDefault();
 
-    // Grab the game and results section
-    //const gameContainerSection = document.querySelector();
+    // Grab the game buttons and results section
+    const gameButtons= document.querySelectorAll("section#game-container button");
+    const resultsContainerSection = document.querySelector("section#results-container"); 
+
+    if (resultsContainerSection.classList.contains("animate__fadeIn"))
+    {
+        resultsContainerSection.classList.remove("animate__fadeIn");
+    }
+
+     // Make the results container dissapear
+     resultsContainerSection.classList.add("animate__fadeOut");
+
+    setTimeout(() => {
+        resultsContainerSection.style.display = "none";
+
+        // Reset the background color of all buttons and enable them
+        gameButtons.forEach(gameButton => {
+            gameButton.style.backgroundColor = "";
+            gameButton.disabled = false;
+        });
+
+    }, 1000);
+
 }
 
 function grabChoices() 
