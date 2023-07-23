@@ -110,35 +110,109 @@ section#link-container
     bottom: 50%;
 }
 
-a#game-link
+a#game-link, a#play-again
 {
     text-decoration: none;
     text-align: center;
     font-size: var(--link-font-size);
 }
 
-a#game-link > h2
+a#play-again
 {
-    background-color: var(--link-color);
-    padding: 10px;
-    margin: 0 35%;
-    border-radius: 60px;
-    color: var(--special-text-color);
-    transition: color 0.3s, background-color 0.3s;
+    margin-top: 25px;
 }
 
-a#game-link > h2:hover
+a#game-link > h2, a#play-again > h2
+{
+    background-color: var(--link-color);
+    color: var(--special-text-color);
+    transition: color 0.3s, background-color 0.3s;
+    border-radius: 60px;
+}
+
+a#game-link > h2
+{
+    padding: 10px;
+    margin: 0 35%;
+}
+
+a#play-again > h2
+{
+    padding: 20px;
+    margin: 0 15%;
+}
+
+a#game-link > h2:hover, a#play-again > h2:hover
 {
     color: rgb(209, 220, 227);
     background-color: rgb(77, 101, 120);
 }
 
-a#game-link > h2:active
+a#game-link > h2:active, a#play-again > h2:active
 {
     color: rgb(143, 148, 151);
 }
 
-/* Style the Header */
+/* Default Styles for other sections */
+section#game-container, section#results-container
+{
+    display: none;
+}
+
+section#results-container
+{
+    flex-flow: column nowrap;
+    justify-content: center;
+    align-items: center;
+    padding: 100px;
+}
+
+.results-message
+{
+    color: var(--special-text-color);
+    font-size: var(--heading-font-size);
+}
+
+section#game-container
+{
+    flex-flow: row nowrap;
+    justify-content: space-around;
+    align-items: center;
+}
+
+/* Style the Game Container */
+div#player, div#computer
+{
+    display: flex;
+    flex-flow: column nowrap;
+    align-items: center;
+}
+
+div.person-profile-pic, div.computer-profile-pic
+{
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: center;
+    align-items: center;
+    padding: 25px;
+}
+
+div.person-profile-pic > img, div.computer-profile-pic > img
+{
+    width: 50%;
+    max-width: 250px;
+    background-color: white;
+    border: 5px solid black;
+    border-radius: 50%;
+}
+
+.rock > img, .paper > img, .scissors > img
+{
+    width: 30%;
+    max-width: 200px;
+}
+
+/* Style the Footer */
 footer
 {
     background-color: rgb(8, 24, 47);

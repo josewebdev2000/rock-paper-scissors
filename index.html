@@ -32,7 +32,7 @@
 
     <main>
         <!--Link Section-->
-        <section id="link-container">
+        <section class="animate__animated" id="link-container">
             <a 
             id="game-link"  
             href="#"
@@ -41,9 +41,55 @@
             </a>
         </section>
 
-        <section id="game-container">
-            
+        <section class="animate__animated" id="game-container">
+            <div id="player">
+                <div class="person-profile-pic">
+                    <img src="assets/pics/person.png" alt="Person Profile Picture">
+                </div>
+
+                <div class="user-options">
+                    <button class="user-option rock">
+                        <img src="assets/pics/rock.png" alt="Rock Option">
+                    </button>
+
+                    <button class="user-option paper">
+                        <img src="assets/pics/paper.png" alt="Paper Option">
+                    </button>
+
+                    <button class="user-option scissors">
+                        <img src="assets/pics/scissors.png" alt="Scissors Option">
+                    </button>
+                </div>
+            </div>
+
+            <div id="computer">
+                <div class="computer-profile-pic">
+                    <img src="assets/pics/computer.png" alt="Computer Profile Picture">
+                </div>
+
+                <div class="computer-options">
+                    <button class="computer-option rock">
+                        <img src="assets/pics/rock.png" alt="Rock Option">
+                    </button>
+
+                    <button class="computer-option paper">
+                        <img src="assets/pics/paper.png" alt="Paper Option">
+                    </button>
+
+                    <button class="computer-option scissors">
+                        <img src="assets/pics/scissors.png" alt="Scissors Option">
+                    </button>
+                </div>
+            </div>
         </section>
+
+        <section class="animate__animated" id="results-container">
+            <h1 class="results-message custom-tada"></h1>
+            <a href="#" id="play-again">
+                <h2 class="animate__animated animate__pulse animate__infinite">Play Again</h2>
+            </a>
+        </section>
+
     </main>
 
     <!--Footer-->

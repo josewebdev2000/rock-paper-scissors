@@ -1,20 +1,3 @@
-function getUserChoice(choices)
-{
-    /* Ask the user through a prompt for what element they choose to play with */
-
-    // If the user did not choose a valid option, keep asking
-    let userChoice = "";
-
-    do
-    {
-        // Get user choice
-        userChoice = prompt("What do you choose? (rock, paper, or scissors)");
-    }
-    while (!choices.includes(userChoice));
-
-    return userChoice;
-}
-
 function getComputerChoice(choices)
 {
     /* Randomly return either "Rock", "Paper", or "Scissor" */
@@ -22,7 +5,6 @@ function getComputerChoice(choices)
     // Generate a rendom index to reference a random choice
     const randomIndex = Math.floor(Math.random() * choices.length);
     return choices[randomIndex];
-
 }
 
 function getWinner(winner)
@@ -33,7 +15,7 @@ function getWinner(winner)
 
     switch(winner)
     {
-        case "player":
+        case "user":
             announcement = "You Win!";
             break;
         
@@ -58,7 +40,7 @@ function playRound(playerChoice, computerChoice)
     const computerSelection = computerChoice.toLowerCase();
 
     // Define outputs
-    const playerWinsMsg = "player";
+    const playerWinsMsg = "user";
     const playerLosesMsg = "computer";
     const tieMsg = "none";
 
